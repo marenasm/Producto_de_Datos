@@ -1,0 +1,15 @@
+Se empaqueta el experimento en una imagen de Docker completa.
+En este punto el unico problema latente es centralizar los 
+resultados de las corridas en un solo lugar (disco de red o
+almacenamiento en la nube).
+
+$ docker build -t jdvelasq/mlflow:example .
+
+
+
+Cree un disco o folder externo para ejecutar el experimento.
+Debe copiar unicamente el archivo MLproject
+
+$ mlflow run --env-manager=local -e knn -P n_neighbors=1 .
+$ mlflow run --env-manager=local -e knn -P n_neighbors=2 .
+$ mlflow run --env-manager=local -e elasticnet -P alpha=0.5 -P l1_ratio=0.5 .

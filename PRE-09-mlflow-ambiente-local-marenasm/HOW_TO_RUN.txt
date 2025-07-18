@@ -1,0 +1,10 @@
+En este caso se utiliza MLproject para especificar como se ejecutan los experimentos.
+La utilidad de MLproject es que permite ejecutar experimentos de manera sencilla y reproducible.
+
+
+
+Ejemplo:
+
+$ mlflow run --env-manager=local -e knn -P n_neighbors=5 .
+$ mlflow run --env-manager=local --entry-point elasticnet --param-list alpha=0.5 --param-list l1_ratio=0.5 .
+

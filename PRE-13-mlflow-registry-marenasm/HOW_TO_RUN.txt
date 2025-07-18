@@ -1,0 +1,43 @@
+PASO 1.
+Corridas de ejemplo para tener mas de un modelo:
+
+$ mlflow run --env-manager=local -e knn -P n_neighbors=5 .
+
+$ mlflow run --env-manager=local -e elasticnet -P alpha=0.5 -P l1_ratio=0.5 .
+
+
+PASO 2.
+En mlflow ui registre uno de los modelos y cambie en nombre por "my-regression-model" 
+
+
+PASO 3.
+Verifique que en la pestaña models que el modelo esté registrado correctamente.
+
+PASO 4.
+Use el modelo
+
+
+import mlflow
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+
+def predict():
+
+    file_path = "data/winequality-red.csv"
+    df = pd.read_csv(file_path)
+    y = df["quality"]
+    x = df.drop(columns=["quality"])
+    
+
+    model_name = "my-regression-model"
+    model_version = 1
+
+    model = mlflow.pyfunc.load_model(
+        model_uri=f"models:/{model_name}/{model_version}"
+    )
+
+    return model.predict(x[0:10])
+
+
+predict()
